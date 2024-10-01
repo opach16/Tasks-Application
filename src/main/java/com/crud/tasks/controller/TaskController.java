@@ -15,7 +15,7 @@ public class TaskController {
         return new ArrayList<TaskDto>();
     }
 
-    @GetMapping(value = "/v1/tasks/{taskId}")
+    @GetMapping(value = "{taskId}")
     public TaskDto getTask(@PathVariable Long taskId) {
         return new TaskDto(1L, "testTittle", "testContent");
     }
