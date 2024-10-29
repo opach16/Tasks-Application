@@ -1,6 +1,5 @@
-package com.crud.tasks.domain;
+package com.crud.tasks.domain.createdTrelloCard;
 
-import com.crud.tasks.domain.createdTrelloCard.Badges;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
