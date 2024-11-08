@@ -10,6 +10,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
@@ -69,5 +70,20 @@ class TrelloClientTest {
         assertEquals(createdTrelloCard.getName(), fetchedTrelloCard.getName());
         assertEquals(createdTrelloCard.getShortUrl(), fetchedTrelloCard.getShortUrl());
         assertEquals(createdTrelloCard.getBadges(), fetchedTrelloCard.getBadges());
+    }
+
+    @Test
+    void shouldReturnEmptyList() throws URISyntaxException {
+        //given
+        when(trelloConfig.getTrelloApiEndpoint()).thenReturn("https://test.com");
+        when(trelloConfig.getTrelloAppKey()).thenReturn("test");
+        when(trelloConfig.getTrelloToken()).thenReturn("test");
+        when(trelloConfig.getTrelloUsername()).thenReturn("test");
+        URI uri = new URI("https://test.com/members/test/boards?key=test&token=test&fields=name,id&lists=all");
+        when(restTemplate.getForObject(uri, TrelloBoardDto[].class)).thenThrow(RestClientException.class);
+        //when
+        List<TrelloBoardDto> fetchedTrelloBoards = trelloClient.getTrelloBoards();
+        //then
+        assertEquals(0, fetchedTrelloBoards.size());
     }
 }
