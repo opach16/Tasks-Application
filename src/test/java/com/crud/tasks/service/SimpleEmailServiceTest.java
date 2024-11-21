@@ -24,7 +24,31 @@ class SimpleEmailServiceTest {
     @Test
     void shouldSendEmail() {
         //given
-        Mail mail = new Mail("test@test.com", "test", "test message");
+        Mail mail = Mail.builder()
+                .receiverEmail("test@test.com")
+                .toCc("testCc@test.com")
+                .subject("test")
+                .message("test message")
+                .build();
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setTo(mail.getReceiverEmail());
+        mailMessage.setSubject(mail.getSubject());
+        mailMessage.setText(mail.getMessage());
+        mailMessage.setCc(mail.getToCc());
+        //when
+        simpleEmailService.send(mail);
+        //then
+        verify(javaMailSender, times(1)).send(mailMessage);
+    }
+
+    @Test
+    void shouldSendEmailWithoutCc() {
+        //given
+        Mail mail = Mail.builder()
+                .receiverEmail("test@test.com")
+                .subject("test")
+                .message("test message")
+                .build();
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(mail.getReceiverEmail());
         mailMessage.setSubject(mail.getSubject());
