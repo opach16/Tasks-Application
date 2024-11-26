@@ -2,9 +2,9 @@ package com.crud.tasks.domain;
 
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 
-@Getter
+@Data
 @AllArgsConstructor
 public class TrelloCard {
 
