@@ -3,7 +3,7 @@ package com.crud.tasks.trello.client;
 import com.crud.tasks.domain.TrelloBoardDto;
 import com.crud.tasks.domain.TrelloCardDto;
 import com.crud.tasks.domain.createdTrelloCard.Badges;
-import com.crud.tasks.domain.createdTrelloCard.CreatedTrelloCard;
+import com.crud.tasks.domain.createdTrelloCard.CreatedTrelloCardDto;
 import com.crud.tasks.trello.config.TrelloConfig;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -61,15 +61,15 @@ class TrelloClientTest {
         when(trelloConfig.getTrelloAppKey()).thenReturn("test");
         when(trelloConfig.getTrelloToken()).thenReturn("test");
         URI uri = new URI("https://test.com/cards?idList=testId&key=test&token=test&name=testName&desc=testDesc&pos=testPos");
-        CreatedTrelloCard createdTrelloCard = new CreatedTrelloCard("1", "Task task", "https://test.com", new Badges());
-        when(restTemplate.postForObject(uri, null, CreatedTrelloCard.class)).thenReturn(createdTrelloCard);
+        CreatedTrelloCardDto createdTrelloCardDto = new CreatedTrelloCardDto("1", "Task task", "https://test.com", new Badges());
+        when(restTemplate.postForObject(uri, null, CreatedTrelloCardDto.class)).thenReturn(createdTrelloCardDto);
         //when
-        CreatedTrelloCard fetchedTrelloCard = trelloClient.createNewCard(trelloCardDto);
+        CreatedTrelloCardDto fetchedTrelloCard = trelloClient.createNewCard(trelloCardDto);
         //then
-        assertEquals(createdTrelloCard.getId(), fetchedTrelloCard.getId());
-        assertEquals(createdTrelloCard.getName(), fetchedTrelloCard.getName());
-        assertEquals(createdTrelloCard.getShortUrl(), fetchedTrelloCard.getShortUrl());
-        assertEquals(createdTrelloCard.getBadges(), fetchedTrelloCard.getBadges());
+        assertEquals(createdTrelloCardDto.getId(), fetchedTrelloCard.getId());
+        assertEquals(createdTrelloCardDto.getName(), fetchedTrelloCard.getName());
+        assertEquals(createdTrelloCardDto.getShortUrl(), fetchedTrelloCard.getShortUrl());
+        assertEquals(createdTrelloCardDto.getBadges(), fetchedTrelloCard.getBadges());
     }
 
     @Test
