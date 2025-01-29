@@ -7,6 +7,10 @@ It integrates with the Trello API, allowing users to import and export tasks bet
 Additionally, the system features scheduled email notifications, providing users with regular updates on the number of pending tasks. 
 The API is complemented by a frontend developed in JavaScript for a seamless user experience.
 
+## Screenshots
+
+<img width="871" alt="Screenshot 2025-01-29 at 15 21 22" src="https://github.com/user-attachments/assets/4d70e9f5-e2ec-4274-9b44-4c449ce4df7d" />
+
 ## Features
 
 - **Task Management**: Create, update, delete, and retrieve tasks.
